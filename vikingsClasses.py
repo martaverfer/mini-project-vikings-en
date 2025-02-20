@@ -50,7 +50,7 @@ class Saxon(Soldier):
         string = ''
         if self.health > 0:
             string = (f"A Saxon has received {damage} points of damage")
-        elif self.health == 0:
+        elif self.health <= 0:
             string = 'A Saxon has died in combat'
         return string
 
@@ -78,32 +78,35 @@ class War():
     
     def vikingAttack(self):
         # your code here
-        index_saxon = random.randint(0, 5)
-        index_viking = random.randint(0, 5)
-        damage = self.viking.strength
-        self.saxon.health = self.saxon.receiveDamage(damage)
-        print("A Saxon has died in combat")
-        self.saxonArmy.pop(0)
-        return 
+        saxon = random.choice(self.saxonArmy)
+        viking = random.choice(self.vikingArmy)
+        damage = viking.strength
+        effect = saxon.receiveDamage(damage) 
+        if saxon.health <= 0:
+            self.saxonArmy.remove(saxon)
+            print("A Saxon has died in combat")
+        return effect
     
     def saxonAttack(self):
         # your code here
-        index_saxon = random.randint(0, 5)
-        index_viking = random.randint(0, 5)
-        damage = self.saxonArmy[0].strength
-        print(f"{self.viking.name} has received {str(self.saxon.strength)} points of damage")
-        self.vikingArmy.pop(0)
-        return self.vikingArmy[0].receiveDamage(damage)
+        saxon = random.choice(self.saxonArmy)
+        viking = random.choice(self.vikingArmy)
+        damage = saxon.strength
+        effect = viking.receiveDamage(damage)
+        if viking.health <=0:
+            self.vikingArmy.remove(viking)
+            print(f"{viking.name} has received {str(saxon.strength)} points of damage")
+        return effect
     
     def showStatus(self):
         # your code here
         string = ''
-        if len(self.vikingArmy) == 0:
-            string = 'Vikings have won the war of the century!'
-        elif len(self.saxonArmy) == 0:
-            string = 'Saxons have fought for their lives and survive another day...'
-        elif len(self.saxonArmy) > 0 and len(self.vikingArmy) > 0:
+        if len(self.saxonArmy) > 0 and len(self.vikingArmy) > 0:
             string = 'Vikings and Saxons are still in the thick of battle.'
+        elif len(self.vikingArmy) == 0:
+            string = 'Saxons have fought for their lives and survive another day...'
+        elif len(self.saxonArmy) == 0:
+            string = 'Vikings have won the war of the century!'
         return string
     pass
 
