@@ -26,7 +26,6 @@ class Viking(Soldier):
           self.name = name
         
     def battleCry(self):
-        # your code here
         return 'Odin Owns You All!'
 
     def receiveDamage(self, damage):
