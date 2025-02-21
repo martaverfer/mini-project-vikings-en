@@ -1,4 +1,5 @@
 import random
+import cowsay
 
 # Soldier
 
@@ -78,25 +79,31 @@ class War():
     
     def vikingAttack(self):
         # your code here
-        saxon = random.choice(self.saxonArmy)
-        viking = random.choice(self.vikingArmy)
-        damage = viking.strength
-        effect = saxon.receiveDamage(damage) 
-        if saxon.health <= 0:
-            self.saxonArmy.remove(saxon)
-            print("A Saxon has died in combat")
-        return effect
+        if len(self.saxonArmy) == 0 or len(self.vikingArmy) == 0:
+            pass
+        else:
+            saxon = random.choice(self.saxonArmy)
+            viking = random.choice(self.vikingArmy)
+            damage = viking.strength
+            effect = saxon.receiveDamage(damage) 
+            if saxon.health <= 0:
+                self.saxonArmy.remove(saxon)
+                print("A Saxon has died in combat")
+            return effect
     
     def saxonAttack(self):
         # your code here
-        saxon = random.choice(self.saxonArmy)
-        viking = random.choice(self.vikingArmy)
-        damage = saxon.strength
-        effect = viking.receiveDamage(damage)
-        if viking.health <=0:
-            self.vikingArmy.remove(viking)
-            print(f"{viking.name} has received {str(saxon.strength)} points of damage")
-        return effect
+        if len(self.vikingArmy) == 0 or len(self.saxonArmy) == 0:
+            pass
+        else:
+            saxon = random.choice(self.saxonArmy)
+            viking = random.choice(self.vikingArmy)
+            damage = saxon.strength
+            effect = viking.receiveDamage(damage)
+            if viking.health <=0:
+                self.vikingArmy.remove(viking)
+                print(f"{viking.name} has received {str(saxon.strength)} points of damage")
+            return effect
     
     def showStatus(self):
         # your code here
